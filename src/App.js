@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskList from './_components/TaskList';
+import useLocalStorage from './hooks/useLocalStorage';
 
 function App() {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useLocalStorage('quicktask-tasks', []);
     const [input, setInput] = useState('');
+
+    // Save tasks to localStorage on every change
+    useEffect(() => {
+        localStorage.setItem('quicktask-tasks', JSON.stringify(tasks));
+    }, [tasks]);
 
     const handleAddTask = () => {
         if (input.trim() === '') return;
