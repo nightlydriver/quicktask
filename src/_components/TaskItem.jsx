@@ -1,9 +1,40 @@
 import React, { useState } from 'react';
 import ConfirmDialog from './ConfirmDialog';
 
-const TaskItem = ({ task, tasks, setTasks }) => {
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd }) => {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging,
+    } = useSortable({ id: String(task.id) });
+
+    // Use fallback transition so animation never breaks
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition: transition,  // fallback transition
+        zIndex: isDragging ? 999 : undefined,
+    };
+
     // State to track if the task is being edited
     const [isEditing, setIsEditing] = useState(false);
+
+    const startEditing = () => {
+        if (!task.completed) {
+            setIsEditing(true);
+            onEditStart();
+        }
+    };
+
+    const stopEditing = () => {
+        setIsEditing(false);
+        onEditEnd();
+    };
 
     // State to hold the current edited text value
     const [editText, setEditText] = useState(task.text);
@@ -39,7 +70,7 @@ const TaskItem = ({ task, tasks, setTasks }) => {
     // Enable editing mode if task is not completed
     const handleEdit = () => {
         if (!task.completed) {
-            setIsEditing(true);
+            startEditing();
         }
     };
 
@@ -51,19 +82,19 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                 t.id === task.id ? { ...t, text: editText } : t
             )
         );
-        setIsEditing(false);
+        stopEditing();
     };
 
     // Cancel editing, revert input field to original text
     const handleCancel = () => {
-        setIsEditing(false);
+        stopEditing();
         setEditText(task.text);
     };
 
     // On double-click, trigger editing unless checkbox was clicked
     const handleDoubleClick = (e) => {
         if (e.target.type === 'checkbox') return;
-        handleEdit();
+        if (!isAnyEditing) handleEdit();
     };
 
     return (
@@ -81,6 +112,10 @@ const TaskItem = ({ task, tasks, setTasks }) => {
             <li
                 className="list-group-item d-flex justify-content-between align-items-center"
                 onDoubleClick={handleDoubleClick}
+                ref={setNodeRef}
+                style={style}
+                {...attributes}
+                {...(!isAnyEditing && listeners)}
             >
                 {isEditing ? (
                     // Edit mode: show input with save/cancel controls
@@ -93,6 +128,7 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                                 if (e.key === 'Enter') handleSave();
                                 if (e.key === 'Escape') handleCancel();
                             }}
+                            onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
                             autoFocus
                         />
                     </div>
@@ -104,7 +140,9 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                             className="form-check-input checkbox"
                             id={`check-${task.id}`}
                             checked={task.completed}
+                            disabled={isAnyEditing}
                             onChange={toggleComplete}
+                            onPointerDown={(e) => e.stopPropagation()} // Prevent drag start on checkbox
                         />
                         <label
                             className={`mb-0 ms-3 ${task.completed ? 'text-success text-decoration-line-through' : 'fw-bold'}`}
@@ -123,12 +161,14 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                             <button
                                 className="btn btn-success task-btn"
                                 onClick={handleSave}
+                                onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
                             >
                                 <i className="bi bi-check"></i> Save
                             </button>
                             <button
                                 className="btn btn-secondary task-btn"
                                 onClick={handleCancel}
+                                onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
                             >
                                 <i className="bi bi-x"></i> Cancel
                             </button>
@@ -136,16 +176,19 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                     ) : (
                         <>
                             <button
-                                className={`btn btn-${task.completed ? "secondary" : "primary"} task-btn`}
+                                className={`btn btn-${task.completed || isAnyEditing ? "secondary" : "primary"} task-btn`}
                                 onClick={handleEdit}
-                                disabled={task.completed}
+                                disabled={task.completed || isAnyEditing}
                                 title={task.completed ? 'Cannot edit completed task' : 'Edit task'}
+                                onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
                             >
                                 <i className="bi bi-pencil-fill"></i> Edit
                             </button>
                             <button
-                                className="btn btn-danger task-btn"
+                                className={`btn btn-${isAnyEditing ? "secondary" : "danger"} task-btn`}
                                 onClick={handleDelete}
+                                disabled={isAnyEditing}
+                                onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
                             >
                                 <i className="bi bi-trash-fill"></i> Delete
                             </button>

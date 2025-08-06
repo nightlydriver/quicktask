@@ -62,7 +62,7 @@ const App = () => {
 
             {/* === Task List Section === */}
             <section className="mt-3">
-                <TaskList tasks={tasks} filteredTasks={filteredTasks} setTasks={setTasks} />
+                <TaskList tasks={tasks} filteredTasks={filteredTasks} setTasks={setTasks} filter={filter}/>
             </section>
         </div>
     );
