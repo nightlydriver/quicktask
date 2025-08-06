@@ -50,7 +50,7 @@ const App = () => {
             </section>
 
             {/* === Controls Section (Filter + Delete) === */}
-            <section className="mt-3 text-center">
+            <section className="mt-3">
                 <FilterButtons tasks={tasks} filter={filter} setFilter={setFilter} />
                 <DeleteCompletedTasks tasks={tasks} setTasks={setTasks} />
             </section>
