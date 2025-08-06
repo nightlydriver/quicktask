@@ -25,11 +25,22 @@ const TaskList = ({ tasks, filteredTasks, setTasks, filter }) => {
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={tasks.map(t => String(t.id))} strategy={verticalListSortingStrategy}>
                 {filteredTasks.length === 0 ? (
-                    <div className="text-center h4 my-4">
-                        {tasks.length === 0
-                            ? 'You have no tasks yet. Start by adding one!'
-                            : 'No tasks match this filter.'}
+                    <div className="text-center my-5 text-muted empty-state">
+                        {tasks.length === 0 ? (
+                            <>
+                                <i className="bi bi-clipboard-check display-1 mb-3 d-block" />
+                                <h4 className="mb-2">You're all caught up!</h4>
+                                <p>Add a task to get started.</p>
+                            </>
+                        ) : (
+                            <>
+                                <i className="bi bi-search display-1 mb-3 d-block" />
+                                <h4 className="mb-2">No tasks match this filter</h4>
+                                <p>Try changing the filter or adding new tasks.</p>
+                            </>
+                        )}
                     </div>
+
                 ) : (
                     <ul className="list-group mt-3">
                         {filteredTasks.map((task) => (
