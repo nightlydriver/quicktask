@@ -56,8 +56,11 @@ src/
 
 ## 🧪 TODOs / Future Improvements
 - Add custom modal dialogs
-- Persist tasks with localStorage or backend
 - Add drag-and-drop reordering
+- UX Improvements and visual styles
+- Task due dates
+- Import/export feature
+- Dark mode support
 
 ---
 Feel free to customize or improve the app — contributions are welcome!
