@@ -1,7 +1,7 @@
 import React from 'react';
 import TaskItem from './TaskItem';
 
-function TaskList({ tasks, setTasks }) {
+const TaskList = ({ tasks, setTasks }) => {
     return (
         <ul className="list-group">
             {tasks.map((task) => (

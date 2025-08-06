@@ -1,7 +1,6 @@
-// src/components/TaskItem.js
 import React, { useState } from 'react';
 
-function TaskItem({ task, tasks, setTasks }) {
+const TaskItem = ({ task, tasks, setTasks }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(task.text);
 
