@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# 📝 QuickTask
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**QuickTask** is a minimalist, responsive task manager built with React. It focuses on simplicity, speed, and usability — perfect for managing your daily todos.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+- ✅ Add, edit, complete, and delete tasks
+- 🔁 Filter tasks by All / Active / Completed
+- 🧹 Delete all completed tasks at once
+- 🔒 Prevent editing completed tasks
+- ⌨️ Keyboard support (Enter to submit, Escape to cancel)
+- 📱 Fully responsive UI for mobile and desktop
+- 🗑️ Confirmation dialog before deleting all completed tasks
+- 📊 Task summary display with real-time counts
 
-### `npm start`
+## 🚀 Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. Clone the repository
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+bash
+git clone https://github.com/nightlydriver/quicktask.git
+cd quicktask
+```
 
-### `npm test`
+### 2. Install dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm install
+```
 
-### `npm run build`
+### 3. Start the development server
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm start
+```
+The app will run on http://localhost:3000
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠 Tech Stack
+- React
+- Bootstrap 5
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📂 Project Structure
+```
+src/
+├── _components/        # React components
+│   ├── AddNewTask.jsx
+│   ├── DeleteCompletedTasks.jsx
+│   ├── FilterButtons.jsx
+│   ├── TaskItem.jsx
+│   ├── TaskList.jsx
+│   └── TaskSummary.jsx
+├── App.jsx             # Main app container
+└── index.js            # Entry point
+```
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🧪 TODOs / Future Improvements
+- Add custom modal dialogs
+- Persist tasks with localStorage or backend
+- Add drag-and-drop reordering
