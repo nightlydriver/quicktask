@@ -37,46 +37,73 @@ const TaskItem = ({ task, tasks, setTasks }) => {
         setEditText(task.text); // reset the input
     };
 
+    const handleDoubleClick = (e) => {
+        // If the double click target is the checkbox, do nothing
+        if (e.target.type === 'checkbox') return;
+
+        handleEdit();
+    };
+
+
     return (
         <li
-            className={`list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'text-decoration-line-through text-muted' : ''
-                }`}
-            onDoubleClick={handleEdit}
+            className={`list-group-item d-flex justify-content-between align-items-center`}
+            onDoubleClick={handleDoubleClick}
         >
             {isEditing ? (
-                <input
-                    className="form-control me-2"
-                    value={editText}
-                    onChange={(e) => setEditText(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') handleSave();
-                        if (e.key === 'Escape') handleCancel();
-                    }}
-                    autoFocus
-                />
+                <div className="flex-grow-1 me-2">
+                    <input
+                        className="form-control"
+                        value={editText}
+                        onChange={(e) => setEditText(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') handleSave();
+                            if (e.key === 'Escape') handleCancel();
+                        }}
+                        autoFocus
+                    />
+                </div>
             ) : (
-                <span
-                    onClick={toggleComplete}
-                    style={{ cursor: 'pointer' }}
-                >
-                    {task.text}
-                </span>
+                <div className="d-flex align-items-center flex-grow-1 me-3">
+                    <input
+                        type="checkbox"
+                        className="form-check-input checkbox"
+                        id={`check-${task.id}`}
+                        checked={task.completed}
+                        onChange={toggleComplete}
+                    />
+                    <label
+                        className={`mb-0 ms-3 ${task.completed ? 'text-success text-decoration-line-through' : 'fw-bold'}`}
+                        style={{ cursor: 'default' }}
+                        onClick={(e) => e.preventDefault()} // block toggling via label click
+                    >
+                        {task.text}
+                    </label>
+                </div>
             )}
 
-            <div className="btn-group btn-group-sm">
+            <div className="d-flex flex-column flex-md-row gap-2">
                 {isEditing ? (
                     <>
-                        <button className="btn btn-success" onClick={handleSave}>
-                            <i className="bi bi-check"></i>
+                        <button
+                            className="btn btn-success"
+                            style={{ width: '100px' }}
+                            onClick={handleSave}
+                        >
+                            <i className="bi bi-check"></i> Save
                         </button>
-                        <button className="btn btn-secondary" onClick={handleCancel}>
-                            <i className="bi bi-x"></i>
+                        <button
+                            className="btn btn-secondary"
+                            style={{ width: '100px' }}
+                            onClick={handleCancel}
+                        >
+                            <i className="bi bi-x"></i> Cancel
                         </button>
                     </>
                 ) : (
                     <>
                         <button
-                            className="btn btn-outline-secondary"
+                            className="btn btn-primary"
                             onClick={handleEdit}
                             disabled={task.completed}
                             title={
@@ -84,11 +111,16 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                                     ? 'Cannot edit completed task'
                                     : 'Edit task'
                             }
+                            style={{ width: '100px' }}
                         >
-                            <i className="bi bi-pencil"></i>
+                            <i className="bi bi-pencil-fill"></i> Edit
                         </button>
-                        <button className="btn btn-outline-danger" onClick={handleDelete}>
-                            <i className="bi bi-trash"></i>
+                        <button
+                            className="btn btn-danger"
+                            style={{ width: '100px' }}
+                            onClick={handleDelete}
+                        >
+                            <i className="bi bi-trash-fill"></i> Delete
                         </button>
                     </>
                 )}
