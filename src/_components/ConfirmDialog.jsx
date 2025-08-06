@@ -20,7 +20,7 @@ const ConfirmDialog = ({ title, message, handleConfirm, handleCancel }) => {
                     </button>
 
                     {/* Cancel Button */}
-                    <button onClick={handleCancel} className="btn btn-dark">
+                    <button onClick={handleCancel} className="btn btn-secondary">
                         <i className="bi bi-x"></i> No
                     </button>
                 </div>

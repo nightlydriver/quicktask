@@ -10,8 +10,8 @@
   --task-card-shadow: rgba(0, 0, 0, 0.05);
   --task-card-shadow-hover: rgba(0, 0, 0, 0.08);
 
-  --btn-primary-bg: #4CAF93;
-  --btn-primary-bg-hover: #3e9c83;
+  --btn-primary-bg: #3b82f6;
+  --btn-primary-bg-hover: #2563eb;
 
   --btn-danger-bg: #ef5350;
   --btn-danger-bg-hover: #e53935;
@@ -44,8 +44,8 @@
   --task-card-shadow: rgba(0, 0, 0, 0.7);
   --task-card-shadow-hover: rgba(0, 0, 0, 0.9);
 
-  --btn-primary-bg: #66bb6a;
-  --btn-primary-bg-hover: #4caf50;
+  --btn-primary-bg: #60a5fa;    
+  --btn-primary-bg-hover: #3b82f6;
 
   --btn-danger-bg: #ef5350;
   --btn-danger-bg-hover: #e53935;
@@ -128,6 +128,12 @@ button:not(:disabled):hover {
   transform: scale(1.05);
 }
 
+button:active {
+  background-color: inherit;
+  color: inherit;
+  box-shadow: none;
+}
+
 .form-check-input:checked {
   background-color: var(--checkbox-checked-bg);
   border-color: var(--checkbox-checked-border);
@@ -163,44 +169,72 @@ button:not(:disabled):hover {
   background-color: var(--btn-primary-bg);
   border-color: var(--btn-primary-bg);
   color: white;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:active {
   background-color: var(--btn-primary-bg-hover);
   border-color: var(--btn-primary-bg-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4);
 }
 
 .btn-danger {
   background-color: var(--btn-danger-bg);
   border-color: var(--btn-danger-bg);
   color: white;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn-danger:hover {
+.btn-danger:hover,
+.btn-danger:active {
   background-color: var(--btn-danger-bg-hover);
   border-color: var(--btn-danger-bg-hover);
+}
+
+.btn-danger:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 0 4px rgba(239, 83, 80, 0.4);
 }
 
 .btn-success {
   background-color: var(--btn-success-bg);
   border-color: var(--btn-success-bg);
   color: white;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn-success:hover {
+.btn-success:hover,
+.btn-success:active {
   background-color: var(--btn-success-bg-hover);
   border-color: var(--btn-success-bg-hover);
+}
+
+.btn-success:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 0 4px rgba(67, 160, 71, 0.4);
 }
 
 .btn-secondary {
   background-color: var(--btn-secondary-bg);
   border-color: var(--btn-secondary-bg);
   color: white;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-secondary:active {
   background-color: var(--btn-secondary-bg-hover);
   border-color: var(--btn-secondary-bg-hover);
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 0 4px rgba(176, 190, 197, 0.4);
 }
 
 /* === Task Text === */
