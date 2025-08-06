@@ -120,6 +120,14 @@ input[type="text"]:focus {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+button:not(:disabled) {
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+button:not(:disabled):hover {
+  transform: scale(1.05);
+}
+
 .form-check-input:checked {
   background-color: var(--checkbox-checked-bg);
   border-color: var(--checkbox-checked-border);
