@@ -58,3 +58,6 @@ src/
 - Add custom modal dialogs
 - Persist tasks with localStorage or backend
 - Add drag-and-drop reordering
+
+---
+Feel free to customize or improve the app — contributions are welcome!
