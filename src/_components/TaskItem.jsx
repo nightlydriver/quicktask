@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ConfirmDialog from './ConfirmDialog';
 
 import { useSortable } from '@dnd-kit/sortable';
@@ -23,6 +23,16 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
 
     // State to track if the task is being edited
     const [isEditing, setIsEditing] = useState(false);
+
+    // Input reference
+    const inputRef = useRef(null);
+
+    // When entering edit mode, auto-select the text
+    useEffect(() => {
+        if (isEditing && inputRef.current) {
+            inputRef.current.select();
+        }
+    }, [isEditing]);
 
     const startEditing = () => {
         if (!task.completed) {
@@ -74,15 +84,24 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
         }
     };
 
+    // State for showing saved animation
+    const [showSaved, setShowSaved] = useState(false);
+
     // Save edited text if not empty, then exit editing mode
     const handleSave = () => {
         if (editText.trim() === '') return;
+
         setTasks(
             tasks.map((t) =>
                 t.id === task.id ? { ...t, text: editText } : t
             )
         );
-        stopEditing();
+
+        setIsEditing(false);
+        onEditEnd?.(); // if passed from parent
+
+        setShowSaved(true);
+        setTimeout(() => setShowSaved(false), 2000); // Hide after 2s
     };
 
     // Cancel editing, revert input field to original text
@@ -121,11 +140,12 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
                     // Edit mode: show input with save/cancel controls
                     <div className="flex-grow-1 me-2">
                         <input
+                            ref={inputRef}
                             className="form-control"
                             value={editText}
                             onChange={(e) => setEditText(e.target.value)}
                             onKeyDown={(e) => {
-                                if (e.key === 'Enter') handleSave();
+                                if (e.key === 'Enter' && !(editText.trim() === task.text.trim() || !editText.trim())) handleSave();
                                 if (e.key === 'Escape') handleCancel();
                             }}
                             onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
@@ -142,6 +162,7 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
                             checked={task.completed}
                             disabled={isAnyEditing}
                             onChange={toggleComplete}
+                            title={task.completed ? "Mark as undone" : "Mark as done"}
                             onPointerDown={(e) => e.stopPropagation()} // Prevent drag start on checkbox
                         />
                         <label
@@ -151,6 +172,11 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
                         >
                             {task.text}
                         </label>
+                        {showSaved && (
+                            <span className="ms-2 text-success fw-semibold small fade-in">
+                                <i className="bi bi-check-circle-fill me-1"></i> Saved!
+                            </span>
+                        )}
                     </div>
                 )}
 
@@ -159,9 +185,17 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
                     {isEditing ? (
                         <>
                             <button
-                                className="btn btn-success task-btn"
+                                className={`btn btn-${editText.trim() === task.text.trim() || !editText.trim() ? "secondary" : "success"} task-btn`}
                                 onClick={handleSave}
-                                onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
+                                disabled={editText.trim() === task.text.trim() || !editText.trim()}
+                                onPointerDown={(e) => e.stopPropagation()}
+                                title={
+                                    !editText.trim()
+                                        ? "Cannot save empty task"
+                                        : editText.trim() === task.text.trim()
+                                            ? "No changes to save"
+                                            : "Save changes"
+                                }
                             >
                                 <i className="bi bi-check"></i> Save
                             </button>
@@ -169,6 +203,7 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
                                 className="btn btn-secondary task-btn"
                                 onClick={handleCancel}
                                 onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
+                                title="Discard changes"
                             >
                                 <i className="bi bi-x"></i> Cancel
                             </button>
@@ -188,6 +223,7 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
                                 className={`btn btn-${isAnyEditing ? "secondary" : "danger"} task-btn`}
                                 onClick={handleDelete}
                                 disabled={isAnyEditing}
+                                title="Delete task"
                                 onPointerDown={(e) => e.stopPropagation()} // Prevent drag start
                             >
                                 <i className="bi bi-trash-fill"></i> Delete
