@@ -13,7 +13,10 @@ const TaskItem = ({ task, tasks, setTasks }) => {
     };
 
     const handleDelete = () => {
-        setTasks(tasks.filter((t) => t.id !== task.id));
+        const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+        if (confirmDelete) {
+            setTasks(tasks.filter((t) => t.id !== task.id));
+        }
     };
 
     const handleEdit = () => {

@@ -8,6 +8,7 @@ import TaskList from '_components/TaskList';
 import FilterButtons from '_components/FilterButtons';
 import TaskSummary from '_components/TaskSummary';
 import AddNewTask from '_components/AddNewTask';
+import DeleteCompletedTasks from '_components/DeleteCompletedTasks';
 
 // Custom Stylesheet
 import 'styles/theme.css';
@@ -50,6 +51,10 @@ const App = () => {
 
             {/* Add New Task */}
             <AddNewTask input={input} setInput={setInput} handleAddTask={handleAddTask} />
+
+            {/* Delete Completed Tasks */}
+            <DeleteCompletedTasks tasks={tasks} setTasks={setTasks}/>
+            <br />
 
             {/* Filter Buttons */}
             <FilterButtons filter={filter} setFilter={setFilter} />
