@@ -106,7 +106,7 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                 ) : (
                     <>
                         <button
-                            className="btn btn-primary"
+                            className={`btn btn-${task.completed ? "secondary" : "primary"}`}
                             onClick={handleEdit}
                             disabled={task.completed}
                             title={

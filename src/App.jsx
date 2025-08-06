@@ -53,16 +53,17 @@ const App = () => {
             <AddNewTask input={input} setInput={setInput} handleAddTask={handleAddTask} />
             <br />
 
-            {/* Filter Buttons */}
-            <FilterButtons tasks={tasks} filter={filter} setFilter={setFilter} />
-            <br />
+            <div className="text-center">
+                {/* Filter Buttons */}
+                <FilterButtons tasks={tasks} filter={filter} setFilter={setFilter} />
+
+                {/* Delete Completed Tasks */}
+                <DeleteCompletedTasks tasks={tasks} setTasks={setTasks}/>
+                <br />
+            </div>
 
             {/* Remaining Tasks */}
             <TaskSummary tasks={tasks} />
-
-            {/* Delete Completed Tasks */}
-            <DeleteCompletedTasks tasks={tasks} setTasks={setTasks}/>
-            <br />
 
             {/* Task List */}
             <TaskList tasks={tasks} filteredTasks={filteredTasks} setTasks={setTasks} />
