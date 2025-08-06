@@ -1,7 +1,6 @@
 import React from 'react';
 
 const DeleteCompletedTasks = ({ tasks, setTasks }) => {
-
     const handleClearCompleted = () => {
         const confirmClear = window.confirm("Delete all completed tasks?");
         if (confirmClear) {
@@ -9,21 +8,19 @@ const DeleteCompletedTasks = ({ tasks, setTasks }) => {
         }
     };
 
-    if (tasks.length === 0) return null; // Hide if no tasks
+    if (tasks.length === 0) return null;
 
     return (
-        <>
+        <div className="d-flex justify-content-center justify-content-lg-start w-100 mt-3">
             <button
-                className="btn btn-danger mt-3"
+                className="btn btn-danger delete-completed-btn"
                 onClick={handleClearCompleted}
                 disabled={!tasks.some((task) => task.completed)}
             >
                 <i className="bi bi-trash-fill"></i> Delete Completed Tasks
             </button>
-            <br />
-        </>
+        </div>
     );
-
-}
+};
 
 export default DeleteCompletedTasks;

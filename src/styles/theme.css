@@ -1,25 +1,25 @@
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-        monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
 .btn-filter.selected {
-    font-weight: bold;
-    background-color: #0d6efd;
-    color: white;
+  background-color: #0d6efd;
+  color: white;
 }
 
 .form-check-input:checked {
-  background-color: #198754; /* Bootstrap's success color */
+  background-color: #198754;
+  /* Bootstrap's success color */
   border-color: #198754;
 }
 
@@ -33,5 +33,33 @@ code {
 
 .checkbox:focus {
   outline: none;
-  box-shadow: 0 0 5px 1px #1987547f; /* Bootstrap success green glow */
+  box-shadow: 0 0 5px 1px #1987547f;
+  /* Bootstrap success green glow */
+}
+
+/* Full width on small screens */
+.filter-btn {
+  flex: 1 1 30%;
+  min-width: 100px;
+}
+
+/* Smaller, fixed width on larger screens */
+@media (min-width: 992px) {
+  .filter-btn {
+    flex: 0 0 auto;
+    width: 120px;
+  }
+}
+
+.delete-completed-btn {
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
+/* On large screens (≥992px), fix width and left align */
+@media (min-width: 992px) {
+  .delete-completed-btn {
+    flex: 0 0 auto;
+    width: 376px;
+  }
 }
