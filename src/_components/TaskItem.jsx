@@ -52,13 +52,24 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
     // State to control visibility of the delete confirmation dialog
     const [showConfirm, setShowConfirm] = useState(false);
 
+    // State for task that has just been completed
+    const [justCompleted, setJustCompleted] = useState(false);
+
     // Toggle completion status of the task
     const toggleComplete = () => {
+        const wasIncomplete = !task.completed;
+
         setTasks(
             tasks.map((t) =>
                 t.id === task.id ? { ...t, completed: !t.completed } : t
             )
         );
+
+        if (wasIncomplete) {
+            if (showSaved) setShowSaved(false); // prevent overlap
+            setJustCompleted(true);
+            setTimeout(() => setJustCompleted(false), 1200); // matches animation time
+        }
     };
 
     // Show confirmation dialog when delete button is clicked
@@ -172,9 +183,16 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
                         >
                             {task.text}
                         </label>
-                        {showSaved && (
+
+                        {/* Animation for marking as complete */}
+                        {justCompleted && (
+                            <i className="bi bi-check-circle-fill text-success ms-3 pop-fade"></i>
+                        )}
+
+                        {/* Animation for saving the task name (do not show both at the same time) */}
+                        {!justCompleted && showSaved && (
                             <span className="ms-2 text-success fw-semibold small fade-in">
-                                <i className="bi bi-check-circle-fill me-1"></i> Saved!
+                                Saved!
                             </span>
                         )}
                     </div>

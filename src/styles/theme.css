@@ -104,3 +104,26 @@ code {
   margin-top: 4rem;
   color: #6c757d;
 }
+
+@keyframes popFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  60% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.pop-fade {
+  animation: popFade 1.2s ease-out forwards;
+  pointer-events: none;
+}
