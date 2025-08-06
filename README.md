@@ -44,22 +44,22 @@ The app will run on http://localhost:3000
 src/
 ├── _components/        # React components
 │   ├── AddNewTask.jsx
+│   ├── ConfirmDialog.jsx
 │   ├── DeleteCompletedTasks.jsx
 │   ├── FilterButtons.jsx
 │   ├── TaskItem.jsx
 │   ├── TaskList.jsx
 │   └── TaskSummary.jsx
+├── assets/             # Fonts and images
+├── hooks/              # JavaScript hooks
+├── styles/             # Custom stylesheet for theming
 ├── App.jsx             # Main app container
 └── index.js            # Entry point
 ```
 
 ## 🧪 TODOs / Future Improvements
-- Add custom modal dialogs
-- Add drag-and-drop reordering
-- UX Improvements and visual styles
 - Task due dates
 - Import/export feature
-- Dark mode support
 
 ---
 Feel free to customize or improve the app — contributions are welcome!
