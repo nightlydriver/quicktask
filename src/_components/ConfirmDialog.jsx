@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ConfirmDialog = ({ title, message, handleConfirm, handleCancel }) => {
+const ConfirmDialog = ({ title, message, handleConfirm, handleCancel, closing }) => {
     return (
         <div className="dialog-overlay">
-            <div className="dialog">
+            <div className={`dialog ${closing ? 'dialog-exit' : ''}`}>
                 {/* Title */}
                 <h3>
                     <i className="bi bi-exclamation-triangle-fill"></i> {title}

@@ -72,6 +72,17 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
         }
     };
 
+    const [closing, setClosing] = useState(false);
+
+    function handleClose() {
+        setClosing(true);
+        setTimeout(() => {
+            // Then actually remove the dialog from DOM
+            setShowConfirm(false);
+            setClosing(false); // Reset for next time
+        }, 250); // Match duration of fadeOut
+    }
+
     // Show confirmation dialog when delete button is clicked
     const handleDelete = () => {
         setShowConfirm(true);
@@ -79,13 +90,15 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
 
     // Confirm deletion: remove task from the list and hide dialog
     const confirmDelete = () => {
-        setTasks(tasks.filter((t) => t.id !== task.id));
-        setShowConfirm(false);
+        handleClose();
+        setTimeout(() => {
+            setTasks(tasks.filter((t) => t.id !== task.id));
+        }, 250);
     };
 
     // Cancel deletion: just hide confirmation dialog
     const cancelDelete = () => {
-        setShowConfirm(false);
+        handleClose();
     };
 
     // Enable editing mode if task is not completed
@@ -136,6 +149,7 @@ const TaskItem = ({ task, tasks, setTasks, isAnyEditing, onEditStart, onEditEnd 
                     message={`Are you sure you want to delete the task? (${task.text})`}
                     handleConfirm={confirmDelete}
                     handleCancel={cancelDelete}
+                    closing={closing}
                 />
             )}
 
