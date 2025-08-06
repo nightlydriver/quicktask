@@ -89,15 +89,13 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                 {isEditing ? (
                     <>
                         <button
-                            className="btn btn-success"
-                            style={{ width: '100px' }}
+                            className="btn btn-success task-btn"
                             onClick={handleSave}
                         >
                             <i className="bi bi-check"></i> Save
                         </button>
                         <button
-                            className="btn btn-secondary"
-                            style={{ width: '100px' }}
+                            className="btn btn-secondary task-btn"
                             onClick={handleCancel}
                         >
                             <i className="bi bi-x"></i> Cancel
@@ -106,7 +104,7 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                 ) : (
                     <>
                         <button
-                            className={`btn btn-${task.completed ? "secondary" : "primary"}`}
+                            className={`btn btn-${task.completed ? "secondary" : "primary"} task-btn`}
                             onClick={handleEdit}
                             disabled={task.completed}
                             title={
@@ -114,13 +112,11 @@ const TaskItem = ({ task, tasks, setTasks }) => {
                                     ? 'Cannot edit completed task'
                                     : 'Edit task'
                             }
-                            style={{ width: '100px' }}
                         >
                             <i className="bi bi-pencil-fill"></i> Edit
                         </button>
                         <button
-                            className="btn btn-danger"
-                            style={{ width: '100px' }}
+                            className="btn btn-danger task-btn"
                             onClick={handleDelete}
                         >
                             <i className="bi bi-trash-fill"></i> Delete

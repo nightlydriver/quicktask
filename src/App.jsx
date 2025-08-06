@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // Hooks
 import useLocalStorage from 'hooks/useLocalStorage';
@@ -20,11 +20,6 @@ const App = () => {
 
     // Sets the value for the input field
     const [input, setInput] = useState('');
-
-    // Save tasks to localStorage on every change
-    useEffect(() => {
-        localStorage.setItem('quicktask-tasks', JSON.stringify(tasks));
-    }, [tasks]);
 
     // Handles adding tasks
     const handleAddTask = () => {
@@ -49,24 +44,26 @@ const App = () => {
         <div className="container py-4">
             <h1 className="display-1 mb-4 text-center">📝QuickTask</h1>
 
-            {/* Add New Task */}
-            <AddNewTask input={input} setInput={setInput} handleAddTask={handleAddTask} />
-            <br />
+            {/* === Input Section === */}
+            <section>
+                <AddNewTask input={input} setInput={setInput} handleAddTask={handleAddTask} />
+            </section>
 
-            <div className="text-center">
-                {/* Filter Buttons */}
+            {/* === Controls Section (Filter + Delete) === */}
+            <section className="mt-3 text-center">
                 <FilterButtons tasks={tasks} filter={filter} setFilter={setFilter} />
+                <DeleteCompletedTasks tasks={tasks} setTasks={setTasks} />
+            </section>
 
-                {/* Delete Completed Tasks */}
-                <DeleteCompletedTasks tasks={tasks} setTasks={setTasks}/>
-                <br />
-            </div>
+            {/* === Summary Section === */}
+            <section className="mt-3">
+                <TaskSummary tasks={tasks} />
+            </section>
 
-            {/* Remaining Tasks */}
-            <TaskSummary tasks={tasks} />
-
-            {/* Task List */}
-            <TaskList tasks={tasks} filteredTasks={filteredTasks} setTasks={setTasks} />
+            {/* === Task List Section === */}
+            <section className="mt-3">
+                <TaskList tasks={tasks} filteredTasks={filteredTasks} setTasks={setTasks} />
+            </section>
         </div>
     );
 }

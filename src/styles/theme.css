@@ -38,8 +38,13 @@ code {
 }
 
 /* Full width on small screens */
-.filter-btn {
-  flex: 1 1 30%;
+.filter-btn,
+.delete-completed-btn {
+  min-width: 120px;
+  flex: 1 1 0;
+}
+
+.task-btn {
   min-width: 100px;
 }
 
@@ -49,15 +54,6 @@ code {
     flex: 0 0 auto;
     width: 120px;
   }
-}
-
-.delete-completed-btn {
-  flex: 1 1 100%;
-  max-width: 100%;
-}
-
-/* On large screens (≥992px), fix width and left align */
-@media (min-width: 992px) {
   .delete-completed-btn {
     flex: 0 0 auto;
     width: 376px;
