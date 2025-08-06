@@ -23,14 +23,14 @@ const App = () => {
 
     // Theme: 'light' | 'dark' | 'auto'
     const [theme, setTheme] = useLocalStorage('theme', 'auto');
-    const [resolvedTheme, setResolvedTheme] = useState('light');
-
+    const [isThemeLoaded, setIsThemeLoaded] = useState(false);
+    
     // Update <html> based on theme
     useEffect(() => {
         const applyTheme = () => {
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             const effectiveTheme = theme === 'auto' ? (systemPrefersDark ? 'dark' : 'light') : theme;
-            setResolvedTheme(effectiveTheme);
+            setIsThemeLoaded(true);
             document.documentElement.setAttribute('data-theme', effectiveTheme);
         };
 
@@ -71,6 +71,11 @@ const App = () => {
         if (filter === 'completed') return task.completed;
         return true; // 'all'
     });
+
+    // Render nothing until theme is loaded to avoid flicker
+    if (!isThemeLoaded) {
+        return null;  // or a minimal loader/spinner if you want
+    }
 
     return (
         <div className="container app-container py-4">
