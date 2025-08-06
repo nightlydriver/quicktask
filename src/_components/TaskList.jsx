@@ -25,7 +25,7 @@ const TaskList = ({ tasks, filteredTasks, setTasks, filter }) => {
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={tasks.map(t => String(t.id))} strategy={verticalListSortingStrategy}>
                 {filteredTasks.length === 0 ? (
-                    <div className="text-center my-5 text-muted empty-state">
+                    <div className="text-center my-5 empty-state">
                         {tasks.length === 0 ? (
                             <>
                                 <i className="bi bi-clipboard-check display-1 mb-3 d-block" />

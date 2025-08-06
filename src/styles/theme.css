@@ -1,11 +1,68 @@
 @import url(./fonts.css);
 
+/* === Color Variables === */
+:root {
+  /* Light theme colors */
+  --bg-color: #f4f6f8;
+  --text-color: #212529;
+  --app-bg: #ffffff;
+  --task-card-bg: #fff;
+  --task-card-shadow: rgba(0, 0, 0, 0.05);
+  --task-card-shadow-hover: rgba(0, 0, 0, 0.08);
+
+  --btn-primary-bg: #4CAF93;
+  --btn-primary-bg-hover: #3e9c83;
+
+  --btn-danger-bg: #ef5350;
+  --btn-danger-bg-hover: #e53935;
+
+  --btn-success-bg: #43a047;
+  --btn-success-bg-hover: #388e3c;
+
+  --btn-secondary-bg: #b0bec5;
+  --btn-secondary-bg-hover: #90a4ae;
+
+  --checkbox-checked-bg: #198754;
+  --checkbox-checked-border: #198754;
+
+  --dialog-bg: white;
+  --dialog-overlay-bg: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] {
+  /* Dark theme overrides */
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --app-bg: #1e1e1e;
+  --task-card-bg: #2a2a2a;
+  --task-card-shadow: rgba(0, 0, 0, 0.7);
+  --task-card-shadow-hover: rgba(0, 0, 0, 0.9);
+
+  --btn-primary-bg: #66bb6a;
+  --btn-primary-bg-hover: #4caf50;
+
+  --btn-danger-bg: #ef5350;
+  --btn-danger-bg-hover: #e53935;
+
+  --btn-success-bg: #43a047;
+  --btn-success-bg-hover: #388e3c;
+
+  --btn-secondary-bg: #5c6b73;
+  --btn-secondary-bg-hover: #455a64;
+
+  --checkbox-checked-bg: #66bb6a;
+  --checkbox-checked-border: #66bb6a;
+
+  --dialog-bg: #2a2a2a;
+  --dialog-overlay-bg: rgba(0, 0, 0, 0.85);
+}
+
 /* === Body Styles === */
 body {
   font-family: 'Inter Variable', sans-serif;
   -webkit-font-smoothing: antialiased;
-  background-color: #f4f6f8;
-  color: #212529;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   margin: 0;
   padding: 0;
 }
@@ -15,24 +72,23 @@ body {
   max-width: 600px;
   margin: 2rem auto;
   padding: 2rem 1.5rem;
-  background-color: #ffffff;
+  background-color: var(--app-bg);
   border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px var(--task-card-shadow);
 }
 
 /* === Task Card Styling === */
 .task-card {
-  background: #fff;
+  background: var(--task-card-bg);
   border: none;
   border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px var(--task-card-shadow);
   padding: 1rem;
   margin-bottom: 1rem;
-  transition: box-shadow 0.2s ease;
 }
 
 .task-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px var(--task-card-shadow-hover);
 }
 
 /* === Buttons, Inputs, Checkboxes === */
@@ -41,7 +97,10 @@ input[type="text"],
 input[type="checkbox"] {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, background-color 0.3s ease;
+  background-color: transparent;
+  color: inherit;
+  border: 1px solid transparent;
 }
 
 button:hover,
@@ -50,9 +109,8 @@ input[type="text"]:focus {
 }
 
 .form-check-input:checked {
-  background-color: #198754;
-  /* Bootstrap's success color */
-  border-color: #198754;
+  background-color: var(--checkbox-checked-bg);
+  border-color: var(--checkbox-checked-border);
 }
 
 .checkbox {
@@ -65,13 +123,13 @@ input[type="text"]:focus {
 
 .checkbox:focus {
   outline: none;
-  box-shadow: 0 0 5px 1px #1987547f;
-  /* Bootstrap success green glow */
+  box-shadow: 0 0 5px 1px var(--checkbox-checked-bg);
 }
 
 /* Full width on small screens */
 .filter-btn,
-.delete-completed-btn {
+.delete-completed-btn,
+.theme-toggle-btn {
   min-width: 120px;
   flex: 1 1 0;
 }
@@ -82,39 +140,47 @@ input[type="text"]:focus {
 
 /* === Button Color Overrides === */
 .btn-primary {
-  background-color: #4CAF93;
-  border-color: #4CAF93;
+  background-color: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: white;
 }
 
 .btn-primary:hover {
-  background-color: #3e9c83;
+  background-color: var(--btn-primary-bg-hover);
+  border-color: var(--btn-primary-bg-hover);
 }
 
 .btn-danger {
-  background-color: #ef5350;
-  border-color: #ef5350;
+  background-color: var(--btn-danger-bg);
+  border-color: var(--btn-danger-bg);
+  color: white;
 }
 
 .btn-danger:hover {
-  background-color: #e53935;
+  background-color: var(--btn-danger-bg-hover);
+  border-color: var(--btn-danger-bg-hover);
 }
 
 .btn-success {
-  background-color: #43a047;
-  border-color: #43a047;
+  background-color: var(--btn-success-bg);
+  border-color: var(--btn-success-bg);
+  color: white;
 }
 
 .btn-success:hover {
-  background-color: #388e3c;
+  background-color: var(--btn-success-bg-hover);
+  border-color: var(--btn-success-bg-hover);
 }
 
 .btn-secondary {
-  background-color: #b0bec5;
-  border-color: #b0bec5;
+  background-color: var(--btn-secondary-bg);
+  border-color: var(--btn-secondary-bg);
+  color: white;
 }
 
 .btn-secondary:hover {
-  background-color: #90a4ae;
+  background-color: var(--btn-secondary-bg-hover);
+  border-color: var(--btn-secondary-bg-hover);
 }
 
 /* === Task Text === */
@@ -130,19 +196,22 @@ label {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--dialog-overlay-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
   backdrop-filter: blur(8px);
+  transition: background-color 0.3s ease;
 }
 
 .dialog {
-  background-color: white;
+  background-color: var(--dialog-bg);
   padding: 16px;
   border-radius: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dialog-buttons {
@@ -173,4 +242,76 @@ label {
   0%   { transform: scale(0.8); opacity: 0; }
   50%  { transform: scale(1.05); opacity: 1; }
   100% { transform: scale(1); opacity: 0; }
+}
+
+/* === Theme Toggle === */
+.theme-toggle-button {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  background-color: var(--color-button-secondary);
+  color: var(--color-text);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.theme-toggle-button:hover {
+  background-color: var(--color-button-secondary-hover);
+  transform: scale(1.05);
+}
+
+/* === Dark Mode Enhancements === */
+/* General dark mode form control styles */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select,
+[data-theme="dark"] .form-control {
+  border: 1px solid #888;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+}
+
+/* On focus */
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] .form-control:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Placeholder styling */
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder,
+[data-theme="dark"] .form-control::placeholder {
+  color: #aaa;
+  opacity: 1;
+}
+
+/* Checkbox and radio input specific */
+[data-theme="dark"] input[type="checkbox"],
+[data-theme="dark"] input[type="radio"] {
+  accent-color: var(--color-accent);
+  border: 1px solid #888;
+  background-color: var(--color-surface);
+}
+
+/* Optional: make disabled inputs still legible */
+[data-theme="dark"] input:disabled,
+[data-theme="dark"] textarea:disabled,
+[data-theme="dark"] select:disabled {
+  background-color: #2a2a2a;
+  color: #777;
+  border-color: #555;
 }

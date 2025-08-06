@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Hooks
 import useLocalStorage from 'hooks/useLocalStorage';
@@ -20,6 +20,38 @@ const App = () => {
 
     // Sets the value for the input field
     const [input, setInput] = useState('');
+
+    // Theme: 'light' | 'dark' | 'auto'
+    const [theme, setTheme] = useLocalStorage('theme', 'auto');
+    const [resolvedTheme, setResolvedTheme] = useState('light');
+
+    // Update <html> based on theme
+    useEffect(() => {
+        const applyTheme = () => {
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const effectiveTheme = theme === 'auto' ? (systemPrefersDark ? 'dark' : 'light') : theme;
+            setResolvedTheme(effectiveTheme);
+            document.documentElement.setAttribute('data-theme', effectiveTheme);
+        };
+
+        applyTheme();
+
+        // Re-evaluate if system changes and you're in auto mode
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        if (theme === 'auto') {
+            mediaQuery.addEventListener('change', applyTheme);
+        }
+
+        return () => mediaQuery.removeEventListener('change', applyTheme);
+    }, [theme]);
+
+    const cycleTheme = () => {
+        setTheme(prev =>
+            prev === 'light' ? 'dark' :
+                prev === 'dark' ? 'auto' :
+                    'light'
+        );
+    };
 
     // Handles adding tasks
     const handleAddTask = () => {
@@ -62,8 +94,18 @@ const App = () => {
 
             {/* === Task List Section === */}
             <section className="mt-3">
-                <TaskList tasks={tasks} filteredTasks={filteredTasks} setTasks={setTasks} filter={filter}/>
+                <TaskList tasks={tasks} filteredTasks={filteredTasks} setTasks={setTasks} filter={filter} />
             </section>
+
+            {/* === Floating Theme Toggle Button === */}
+            <button
+                className="theme-toggle-button"
+                onClick={cycleTheme}
+                title={`Switch to ${theme === 'light' ? 'Dark' : theme === 'dark' ? 'Auto' : 'Light'} Mode`}
+                aria-label="Toggle theme"
+            >
+                <i className={`bi ${theme === 'light' ? 'bi-sun' : theme === 'dark' ? 'bi-moon-stars' : 'bi-laptop'} `}></i>
+            </button>
         </div>
     );
 }
