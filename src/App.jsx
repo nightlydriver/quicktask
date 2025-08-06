@@ -41,7 +41,7 @@ const App = () => {
     });
 
     return (
-        <div className="container py-4">
+        <div className="container app-container py-4">
             <h1 className="display-1 mb-4 text-center">📝QuickTask</h1>
 
             {/* === Input Section === */}
