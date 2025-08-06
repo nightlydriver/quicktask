@@ -47,26 +47,25 @@ const App = () => {
 
     return (
         <div className="container py-4">
-            <h1 className="mb-4 text-center">📝 QuickTask</h1>
+            <h1 className="display-1 mb-4 text-center">📝QuickTask</h1>
 
             {/* Add New Task */}
             <AddNewTask input={input} setInput={setInput} handleAddTask={handleAddTask} />
+            <br />
+
+            {/* Filter Buttons */}
+            <FilterButtons tasks={tasks} filter={filter} setFilter={setFilter} />
+            <br />
+
+            {/* Remaining Tasks */}
+            <TaskSummary tasks={tasks} />
 
             {/* Delete Completed Tasks */}
             <DeleteCompletedTasks tasks={tasks} setTasks={setTasks}/>
             <br />
 
-            {/* Filter Buttons */}
-            <FilterButtons filter={filter} setFilter={setFilter} />
-            <br />
-
-            {/* Remaining Tasks */}
-            <div className="mt-3">
-                <TaskSummary tasks={tasks} />
-            </div>
-
             {/* Task List */}
-            <TaskList tasks={filteredTasks} setTasks={setTasks} />
+            <TaskList tasks={tasks} filteredTasks={filteredTasks} setTasks={setTasks} />
         </div>
     );
 }

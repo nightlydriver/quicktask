@@ -9,6 +9,8 @@ const DeleteCompletedTasks = ({ tasks, setTasks }) => {
         }
     };
 
+    if (tasks.length === 0) return null; // Hide if no tasks
+
     return (
         <>
             <button
